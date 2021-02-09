@@ -1,0 +1,188 @@
+﻿@page "/"
+@page "/{theme}"
+@inject NavigationManager UriHelper;
+@{
+    ThemeUrl = Theme switch
+    {
+        "" => "material",
+        "material" => "material",
+        "material-dark" => "material-dark",
+        "bootstrap" => "bootstrap",
+        "bootstrap-dark" => "bootstrap-dark",
+        _ => "material"
+    };
+}
+
+<div class=@("col-lg-12 col-sm-12 col-md-12 " + ThemeUrl) id="sidebar-section">
+    <!-- sidebar element declaration -->
+    <SfSidebar @ref="SidebarObj" Position="@Position" HtmlAttributes="@HtmlAttribute">
+        <ChildContent>
+            <br />
+            <br />
+            <br />
+            <div class="ddl-div">
+                <SfDropDownList TItem="ThemeApp" TValue="string" PopupHeight="230px" Placeholder="Select a theme" @bind-Value="@ThemeValue" DataSource="@ThemeName">
+                    <DropDownListEvents TItem="ThemeApp" TValue="string" ValueChange="OnChange"></DropDownListEvents>
+                    <DropDownListFieldSettings Text="Text" Value="ID"></DropDownListFieldSettings>
+                </SfDropDownList>
+            </div>
+        </ChildContent>
+    </SfSidebar>
+    <div>
+        <br />
+        <br />
+        <h1>Syncfusion Blazor</h1>
+        <br />
+
+        <h2>SideBar</h2>
+        <SfButton @onclick="Toggle" CssClass="e-btn e-info">Toggle Sidebar</SfButton>
+        <br />
+        <br />
+        <br />
+
+        <h2>Tab</h2>
+        <div id="sf-tab-div-ele">
+            <SfTab>
+                <TabItems>
+                    <TabItem Content="Twitter is an online social networking service that enables users to send and read short 140-charactermessages called tweets.Registered users can read and post tweets, but those who are unregistered can only readthem.Users access Twitter through the website interface, SMS or mobile device app Twitter Inc. is based in SanFrancisco and has more than 25 offices around the world.Twitter was created in March 2006 by Jack Dorsey,Evan Williams, Biz Stone, and Noah Glass and launched in July 2006. The service rapidly gained worldwide popularity,with more than 100 million users posting 340 million tweets a day in 2012.The service also handled 1.6 billionsearch queries per day.">
+                        <ChildContent>
+                            <TabHeader Text="Twitter"></TabHeader>
+                        </ChildContent>
+                    </TabItem>
+                    <TabItem Content="Facebook is an online social networking service headquartered in Menlo Park, California. Its website waslaunched on February 4, 2004, by Mark Zuckerberg with his Harvard College roommates and fellow students EduardoSaverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes.">
+                        <ChildContent>
+                            <TabHeader Text="Facebook"></TabHeader>
+                        </ChildContent>
+                    </TabItem>
+                    <TabItem Content="WhatsApp Messenger is a proprietary cross-platform instant messaging client for smartphones that operatesunder a subscription business model.It uses the Internet to send text messages, images, video, user location andaudio media messages to other users using standard cellular mobile numbers. As of February 2016, WhatsApp had a userbase of up to one billion,[10] making it the most globally popular messaging application.WhatsApp Inc., based inMountain View, California, was acquired by Facebook Inc.on February 19, 2014, for approximately US$19.3 billion.">
+                        <ChildContent>
+                            <TabHeader Text="Whatsapp"></TabHeader>
+                        </ChildContent>
+                    </TabItem>
+                </TabItems>
+            </SfTab>
+        </div>
+
+        <h2>DataGrid</h2>
+
+        <SfGrid DataSource="@Orders" AllowPaging="true">
+            <GridPageSettings PageSize="5"></GridPageSettings>
+            <GridColumns>
+                <GridColumn Field=@nameof(Order.OrderID) HeaderText="Order ID" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+                <GridColumn Field=@nameof(Order.CustomerID) HeaderText="Customer Name" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(Order.OrderDate) HeaderText=" Order Date" Format="d" Type="ColumnType.Date" TextAlign="TextAlign.Right" Width="130"></GridColumn>
+                <GridColumn Field=@nameof(Order.Freight) HeaderText="Freight" Format="C2" TextAlign="TextAlign.Right" Width="120"></GridColumn>
+            </GridColumns>
+        </SfGrid>
+    </div>
+</div>
+
+<style>
+    .ddl-div {
+        width: 160px;
+        margin: auto 40px;
+    }
+
+    div#sidebar-section {
+        height: 100vh;
+    }
+
+    div#sf-tab-div-ele {
+        height: 200px;
+        width: 90%;
+        margin: auto;
+    }
+
+    div#sidebar-section.material-dark, .bootstrap-dark {
+        background-color: rgb(66, 66, 66)
+    }
+
+        .material-dark h1, .bootstrap-dark h1, .material-dark h2, .bootstrap-dark h2, .material-dark .e-tab .e-content > .e-item, .bootstrap-dark .e-tab .e-content > .e-item {
+            color: #fff;
+        }
+</style>
+
+@code{
+
+    [Parameter]
+    public string Theme { get; set; }
+
+    SfSidebar SidebarObj;
+    public string Leftbtn = "Left";
+    public string Hamburgerclass = "e-icons menu default";
+    public SidebarPosition Position { get; set; } = SidebarPosition.Left;
+
+    Dictionary<string, object> HtmlAttribute = new Dictionary<string, object>()
+    {
+        {"class", "default-sidebar" }
+    };
+
+    private string textValue { get; set; }
+
+    public class ThemeApp
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+    }
+    private List<ThemeApp> ThemeName = new List<ThemeApp>() {
+        new ThemeApp(){ ID = "material", Text = "Material" },
+        new ThemeApp(){ ID = "material-dark", Text = "Material-Dark" },
+        new ThemeApp(){ ID = "bootstrap", Text = "Bootstrap" },
+        new ThemeApp(){ ID = "bootstrap-dark", Text = "Bootstrap-Dark" }
+     };
+
+    public string ThemeUrl { get; set; }
+    public string ThemeValue { get; set; }
+
+    public void OnChange(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, ThemeApp> args)
+    {
+        UriHelper.NavigateTo("/" + args.Value, true);
+    }
+
+    public void Show()
+    {
+        this.SidebarObj.Show();
+    }
+
+    public void Close()
+    {
+        this.SidebarObj.Hide();
+    }
+
+    public void Toggle()
+    {
+        this.SidebarObj.Toggle();
+    }
+
+    public List<Order> Orders { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        Orders = Enumerable.Range(1, 75).Select(x => new Order()
+        {
+            OrderID = 1000 + x,
+            CustomerID = (new string[] { "ALFKI", "ANANTR", "ANTON", "BLONP", "BOLID" })[new Random().Next(5)],
+            Freight = 2.1 * x,
+            OrderDate = DateTime.Now.AddDays(-x),
+        }).ToList();
+
+        var dark = (UriHelper.Uri).Split("/");
+        if (dark[3].Contains("bootstrap"))
+        {
+            ThemeValue = dark[3];
+        }
+        else
+        {
+            ThemeValue = dark[3].Contains("-dark") ? dark[3] : "material";
+        }
+    }
+
+    public class Order
+    {
+        public int? OrderID { get; set; }
+        public string CustomerID { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public double? Freight { get; set; }
+    }
+}
