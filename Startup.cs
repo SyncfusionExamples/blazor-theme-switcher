@@ -1,4 +1,3 @@
-using blazor_theme_switcher.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +28,6 @@ namespace blazor_theme_switcher
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
             services.AddSyncfusionBlazor();
         }
 
