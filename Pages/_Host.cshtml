@@ -1,19 +1,12 @@
 ﻿@page "/"
-@namespace blazor_theme_switcher.Pages
+@namespace BlazorThemeSwitcher.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.WebUtilities;
 @{
     Layout = null;
-    string path = Request.Path;
 
-    string theme = path switch
-    {
-        "/material" => "material",
-        "/material-dark" => "material-dark",
-        "/bootstrap" => "bootstrap",
-        "/bootstrap-dark" => "bootstrap-dark",
-        "" => "material",
-        "/" => "material"
-    };
+    QueryHelpers.ParseQuery(Request.QueryString.Value).TryGetValue("theme", out var themeName);
+    themeName = themeName.Count > 0 ? themeName.First() : "bootstrap";
 }
 
 <!DOCTYPE html>
@@ -21,12 +14,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>blazor-theme-switcher</title>
+    <title>BlazorThemeSwitcher</title>
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
-    <link href="blazor-theme-switcher.styles.css" rel="stylesheet" />
-    <link href=@("_content/Syncfusion.Blazor/styles/" + theme + ".css") rel="stylesheet" />
+    <link href="BlazorThemeSwitcher.styles.css" rel="stylesheet" />
+    <link href=@("_content/Syncfusion.Blazor/styles/" + themeName + ".css") rel="stylesheet" />
 </head>
 <body>
     <component type="typeof(App)" render-mode="ServerPrerendered" />

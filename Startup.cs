@@ -1,3 +1,4 @@
+using BlazorThemeSwitcher.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Syncfusion.Blazor;
 
-namespace blazor_theme_switcher
+namespace BlazorThemeSwitcher
 {
     public class Startup
     {
@@ -29,6 +30,7 @@ namespace blazor_theme_switcher
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSyncfusionBlazor();
+            services.AddSingleton<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
