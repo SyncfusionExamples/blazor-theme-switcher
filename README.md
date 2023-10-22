@@ -1,29 +1,14 @@
-# blazor-theme-switcher
+# Blazor Theme Switcher
 
-Switch Syncfusion themes in the Blazor server application
+This sample explains about how to switch the Syncfusion themes in the Blazor server application.
 
 ## Prerequisites
 
-* [.NET 5.0 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+* Visual Studio 2022
 
-## How to run the application?
+## How to run the project
 
-* Clone the repository using below command line from the command prompt.
-
-```
-git clone https://github.com/syncfusionexamples/blazor-theme-switcher
-```
-
-* Navigate to the specified application folder.
-
-```
-cd blazor-theme-switcher
-```
-
-* Run the application using below command line.
-
-```
-dotnet run
-```
-
-* Copy/paste the localhost link in the browser to launch the application.
+* Checkout this project to a location in your disk.
+* Open the solution file using the Visual Studio 2022.
+* Restore the NuGet packages by rebuilding the solution.
+* Run the project.
