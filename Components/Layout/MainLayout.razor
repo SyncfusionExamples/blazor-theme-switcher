@@ -1,4 +1,4 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject NavigationManager UrlHelper;
 @using Syncfusion.Blazor.DropDowns;
 @using Syncfusion.Blazor.Buttons;
@@ -22,7 +22,7 @@
                 @*Theme mode switcher*@
                 <SfButton @ref="ThemeMode" IsToggle="true" IsPrimary="true" Content="@themeMode" @onclick="OnThemeModeChange"></SfButton>
             </div>
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank" class="about-link">About</a>
         </div>
 
         <div class="content px-4">
@@ -34,6 +34,10 @@
 <style>
     .theme-switcher {
         margin-right: 24px;
+    }
+
+    .about-link {
+        margin-left: auto;
     }
 
     .dark-bg,
