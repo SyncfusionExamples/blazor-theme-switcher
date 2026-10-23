@@ -1,4 +1,4 @@
-namespace ThemeSwitchSample.Data
+namespace ThemeSwitchSample.Components.Data
 {
     public class WeatherForecastService
     {
